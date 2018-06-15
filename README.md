@@ -8,5 +8,13 @@
 </div>
 
 ### Requirements
-- Python 3.6
-- [Click](http://click.pocoo.or
+- Python `3.6` or `2.7`
+- [Click](http://click.pocoo.org/5/)
+- `nose` for running tests
+- other python requirements are listed in `requirements.txt`
+
+### Installation
+- Clone this repository
+- `[Optional]` create a `virtualenv` and use python from there (only 2.7 and 3.6 supported).
+- Install using pip: `pip install .`
+- Run: `smtpy`
