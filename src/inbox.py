@@ -5,9 +5,11 @@ import smtpd
 from email.parser import Parser
 
 import click
-from logbook import Logger
+import logging
 
-LOGGER = Logger(__name__)
+logging.basicConfig()
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 
 
 class InboxServer(smtpd.SMTPServer, object):
@@ -20,8 +22,7 @@ class InboxServer(smtpd.SMTPServer, object):
     def process_message(self, peer, mailfrom, rcpttos, data, *args, **kwargs):
         LOGGER.info('Collating message from {0}'.format(mailfrom))
         subject = Parser().parsestr(data.decode('utf-8'))
-        LOGGER.debug(dict(to=rcpttos, sender=mailfrom, subject=subject, body=data))
-        click.echo(dict(to=rcpttos, sender=mailfrom, subject=subject, body=data))
+        LOGGER.info(dict(to=rcpttos, sender=mailfrom, subject=subject, body=data))
         return self._handler(to=rcpttos, sender=mailfrom, subject=subject, body=data)
 
 
@@ -44,7 +45,6 @@ class Inbox(object):
         address = address or self.address
 
         LOGGER.info('Starting SMTP server at {0}:{1}'.format(address, port))
-        click.echo('Starting SMTP server at {0}:{1}'.format(address, port))
 
         server = InboxServer(self.collator, (address, port), None)
 

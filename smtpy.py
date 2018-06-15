@@ -1,13 +1,17 @@
 import click
-from logbook import Logger
+import logging
 
-LOGGER = Logger(__name__)
+logging.basicConfig()
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
 
 
 @click.group(invoke_without_command=True)
 @click.option('-p', '--port', default=8081, help='Port to bind the server to')
 @click.option('-a', '--address', default='localhost', help='Address to bind our server to')
-def cli(port, address):
+@click.option('-cp', '--client-port', default=8081, help='SMTP client port')
+@click.option('-ca', '--client-address', default='localhost', help='Client address')
+def cli(port, address, client_port, client_address):
     """
     Simple example of a click application for writing
     complex command line applications in python
@@ -30,19 +34,20 @@ def cli(port, address):
             starttls.
             """
             # click.echo(sender, to, body)
-            # print(port, address, body)
-            conn = SMTP(smtp_host, 8081, address)
+            # print(port, client_port, client_address)
+            conn = SMTP(smtp_host, int(client_port), client_address)
+            conn.set_debuglevel(True)
 
             conn.starttls()
             conn.ehlo_or_helo_if_needed()
             conn.login(smtp_username, smtp_password)
-            conn.sendmail(sender, to, subject, body)
+            conn.sendmail(sender, to, body)
 
-            click.echo(sender, to, subject, body)
+            LOGGER.info(sender, to, subject, body)
 
             conn.quit()
 
-        inbox.serve(address='localhost', port=8081)
+        inbox.serve(address=address, port=int(port))
     else:
         # invalid address
         click.echo('Invalid address!')
