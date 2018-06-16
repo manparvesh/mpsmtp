@@ -45,7 +45,3 @@ def debug(address, port):
     server = smtpd.DebuggingServer((address, int(port)), None)
 
     asyncore.loop()
-
-
-if __name__ == '__main__':
-    cli()

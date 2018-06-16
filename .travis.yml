@@ -14,3 +14,6 @@ script:
   - mpsmtp
   - coverage run setup.py test
   - codecov
+
+notifications:
+  email: false
