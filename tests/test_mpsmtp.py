@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import threading
+import time
 from unittest import TestCase
 
 from click.testing import CliRunner
@@ -32,6 +33,8 @@ class TestMPSMTP(TestCase):
         # create and run server in a thread
         server_thread = ServerThread()
         server_thread.start()
+
+        time.sleep(5)
 
         # run script to send mail to the server
         subprocess.call("./tests/mail_sender.sh", shell=True)
