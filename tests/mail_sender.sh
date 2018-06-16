@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#host=localhost
-#port=4467
-
 mail_sender ()
 {
     from="a@a.com"

@@ -10,8 +10,6 @@ install:
 
 # command to run tests
 script:
-  - pip install .
-  - mpsmtp
   - coverage run setup.py test
   - codecov
 
