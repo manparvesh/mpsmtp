@@ -17,4 +17,4 @@ class TestSample(TestCase):
         # output_string = str(result.oustput.encode('ascii', 'ignore').decode("utf-8"))
         # self.assertEqual(0, result.exit_code)
         # self.assertEqual("Hello, fellow Python programmer!!\n", output_string)
-        subprocess.call("./mail_sender.sh", shell=True)
+        subprocess.call("./tests/mail_sender.sh", shell=True)
