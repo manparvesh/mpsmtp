@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-setup(name='smtpy',
+setup(name='mpsmtp',
       version='0.0.1',
       py_modules=['modules'],
       packages=find_packages(),
@@ -14,7 +14,7 @@ setup(name='smtpy',
       package_data={'': ['*.txt', '*.lst']},
       entry_points='''
         [console_scripts]
-        smtpy=smtpy:cli
+        mpsmtp=mpsmtp:cli
     ''',
       test_suite='nose.collector',
       tests_require=['nose'],
